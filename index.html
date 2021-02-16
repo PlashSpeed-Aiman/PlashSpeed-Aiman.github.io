@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"/>
         <style>
             #background-part{
-                padding:15px;
-                padding-left: 20px;
-                transition: padding .3s;
-                background:#2196f3;
-            ;
+                padding:10px 15px 10px 15px;
+                margin: 10px;
+                margin-top: 0;
+                text-align: justify;
             }
-            #intro-box{
+            #my-background{
+                padding-top:10px;
+                padding-bottom: 10px;
+            }
+            .intro-box{
                 padding:10px;
             }
             #Skills{
@@ -30,46 +34,42 @@
             .inner{
                 display: inline-block;
                 font-size: 25px;
-                color: black;
-            }
-            #Skills:hover,#current-projects:hover,#background-part:hover{
-                padding:30px;
-                box-shadow: 0 0 11px rgba(33,33,33,.2);
-                transition: box-shadow .3s;
-                transition: padding .2s;
-                transition-timing-function: linear;
+                color: rgb(255, 255, 255);
             }
             h2{
                 font-size:170%;
             }
+            .full-size-bar{
+                text-decoration: none;
+                
+            }
         </style>
     </head>
-    <body style="font-family:lato, sans-serif;color:#f5f5f5;">
-        <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="light" data-vanity="aiman-rahim-4267091a3"><a class="LI-simple-link" href='https://my.linkedin.com/in/aiman-rahim-4267091a3?trk=profile-badge'>Aiman Rahim</a></div>
-        <div style="background-color: rgb(0, 112, 218);" id="intro-box">
+    <body class ="ms-Fabric" style="font-family:lato, sans-serif;color:#181818;">
+        <div style="background-color: rgb(0, 112, 218);">
             <div>
                 <h1 style="color: white; text-align: center;">Aiman Rahim</h1>
-                <center>
-                    <div>
-                        <div class="inner"><a href="#" target="_blank">Blog</a></div>
-                        <div class="inner"><a href="https://www.linkedin.com/in/aiman-rahim-4267091a3/" target="_blank">LinkedIn</a></div>
-                        <div class="inner"><a href="https://github.com/PlashSpeed-Aiman" target="_blank">Github</a></div>
-                        <div class="inner"><a href="#" target="_blank">Memes</a></div>
-                    
-                    </div>
-                </center>
-                <h2>This website is a work in progress, more features will be added as I learn more about web dev</h2>
+                
+                <h2 class="intro-box">This website is a work in progress, more features will be added as I learn more about web dev</h2>
+                
+                <div  class="w3-bar w3-black">
+                    <a class="w3-bar-item w3-button" href="#" target="_blank">Blog</a>
+                    <a class="w3-bar-item w3-button" href="https://www.linkedin.com/in/aiman-rahim-4267091a3/" target="_blank">LinkedIn</a>
+                    <a class="w3-bar-item w3-button" href="https://github.com/PlashSpeed-Aiman" target="_blank">Github</a>
+                    <a class="w3-bar-item w3-button" href="#" target="_blank">Memes</a>
+                </div>
+           
             </div>
         </div>
-        <div id="my-background">
-            <div id="background-part">
+        <div id="my-background" style="background-color:#ebebeb;" >
+            <div id="background-part"class="w3-card-2 w3-lime" >
                 <h2>Background</h2>
-                <p style="text-align: justify;">Hello World, I'm Aiman Rahim. I'm currently doing a degree in Biotech-Biochemical Engineering in IIUM. 
+                <p>Hello World, I'm Aiman Rahim. I'm currently doing a degree in Biotech-Biochemical Engineering in IIUM. 
                                                     This website is an experiment for me and a way to express myself. I am also going to use this website to promote myself and others.</p>
                                                     <p>University life is quite colourful as I usually involved myself with extra-curricular activities ( because I'm too lazy to study) and held a few leadership roles most notably as a residential college representative. Other than that, I do sell/distribute second-hand textbooks for Engineering students for side-income ( and a bunch of other things too ).</p>
-                <p style="text-align: justify;">I love to code and cook. My first exposure to programming is Python, but my real programming experience would in C where I took a semester to learn the language. Currently doing some projects in C++ and Java for Android Development. And sometimes my mom likes my cooking. </p>
+                <p>I love to code and cook. My first exposure to programming is Python, but my real programming experience would in C where I took a semester to learn the language. Currently doing some projects in C++ and Java for Android Development. And sometimes my mom likes my cooking.</p>      
             </div>
-            <div id="Skills">
+            <div id="background-part" class="w3-card-2">
                 <h2>
                     The things that I can do
                 </h2>
@@ -83,7 +83,7 @@
                 </ul>
             </div>
             <div>
-                <div id="current-projects">
+                <div id="background-part" class="w3-card-2 w3-blue">
                     <h2>Current Projects(in order of priority):</h2>
                     <ul>
                         <li>This website -> featuring Wasm,some JS code</li>
