@@ -4,7 +4,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/11.0.0/css/fabric.min.css"/>
+        
         <style>
+            body{
+                margin:0;
+            }
+            #header{
+                width:100%;
+            }
+            #header-part{
+                background-color: rgb(33, 104, 80);
+                position: relative;
+                margin-top: -10px;
+                /* margin-bottom: -10px; */
+                height:auto;
+                margin-bottom: -10px;
+                
+    
+            }
+            .header-text{
+                padding-top: 10px;
+                text-align: center;
+                position: relative;
+                color: white;
+            }
             #background-part{
                 padding:10px 15px 10px 15px;
                 margin: 10px;
@@ -14,6 +37,7 @@
             #my-background{
                 padding-top:10px;
                 padding-bottom: 10px;
+                background-color:#ebebeb;
             }
             .intro-box{
                 padding:10px;
@@ -38,39 +62,60 @@
                 color: rgb(255, 255, 255);
             }
             h2{
-                font-size:170%;
+                font-size:200%;
             }
-            .full-size-bar{
-                text-decoration: none;
-                
+            .white-background{
+                background-color: white;
             }
         </style>
     </head>
-    <body class ="ms-Fabric" style="font-family:lato, sans-serif;color:#181818;">
-        <div style="background-color: rgb(0, 112, 218);">
-            <div>
-                <h1 style="color: white; text-align: center;">Aiman Rahim</h1>
-                <h2 class="intro-box">This website is a work in progress, more features will be added as I learn more about web dev</h2>
-                <div  class="w3-bar w3-black">
-                    <a class="w3-bar-item w3-button w3-mobile" href="#" target="_blank">Blog</a>
-                    <a class="w3-bar-item w3-button w3-mobile" href="https://www.linkedin.com/in/aiman-rahim-4267091a3/" target="_blank">LinkedIn</a>
-                    <a class="w3-bar-item w3-button w3-mobile" href="https://github.com/PlashSpeed-Aiman" target="_blank">Github</a>
-                    <a class="w3-bar-item w3-button w3-mobile" href="#" target="_blank">Memes</a>
-                </div>
+    <body class ="ms-Fabric" style="font-family:lato, sans-serif;color:#181818; background-color:#ebebeb;">
+        <div id="header">
+            <div id="header-part">
+                    <div class="header-text">
+                        <h1 >Aiman Rahim</h1>
+                        <h2 class="header-text">This website is a work in progress, more features will be added as I learn more about web dev</h2>
+                     </div>
+            </div>
+            <div id="navbar" class="w3-bar w3-black">
+                <a class="w3-bar-item w3-button" href="#" target="_blank">Blog</a>
+                <a class="w3-bar-item w3-button" href="https://www.linkedin.com/in/aiman-rahim-4267091a3/" target="_blank">LinkedIn</a>
+                <a class="w3-bar-item w3-button" href="https://github.com/PlashSpeed-Aiman" target="_blank">Github</a>
+                <a class="w3-bar-item w3-button" href="#" target="_blank">Memes</a>
+                <a class="w3-bar-item w3-button" id="timeClock" href="#">Time</a>
             </div>
         </div>
-        <div id="my-background" style="background-color:#ebebeb;" >
-            <div id="background-part"class="w3-card-2 w3-lime" >
-                <h2>Background</h2>
-                <p>Hello World, I'm Aiman Rahim. I'm currently doing a degree in Biotech-Biochemical Engineering in IIUM. 
-                                                    This website is an experiment for me and a way to express myself. I am also going to use this website to promote myself and others.</p>
-                                                    <p>University life is quite colourful as I usually involved myself with extra-curricular activities ( because I'm too lazy to study) and held a few leadership roles most notably as a residential college representative. Other than that, I do sell/distribute second-hand textbooks for Engineering students for side-income ( and a bunch of other things too ).</p>
-                <p>I love to code and cook. My first exposure to programming is Python, but my real programming experience would in C where I took a semester to learn the language. Currently doing some projects in C++ and Java for Android Development. And sometimes my mom likes my cooking.</p>      
-            </div>
-            <div id="background-part" class="w3-card-2">
-                <h2>
-                    The things that I can do
-                </h2>
+        <div id="my-background" class="content" >
+            <div  class="w3-card-2 " >
+                <div class="w3-container w3-blue">
+                    <h2 class="ms-fontWeight-semibold">Background </h2>
+                </div>
+                
+                <div id="background-part" class ="w3-container ">
+                    <p>Hello World, I'm Aiman Rahim. I'm currently doing a degree in Biotech-Biochemical Engineering in IIUM. This website is an experiment for me and a way to express myself. I am also going to use this website to promote myself and others.</p>
+                    <p>University life is quite colourful as I usually involved myself with extra-curricular activities ( because I'm too lazy to study) and held a few leadership roles most notably as a residential college representative. Other than that, I do sell/distribute second-hand textbooks for Engineering students for side-income ( and a bunch of other things too ).</p>
+                    <p>I love to code and cook. My first exposure to programming is Python, but my real programming experience would in C where I took a semester to learn the language. Currently doing some projects in C++ and Java for Android Development. And sometimes my mom likes my cooking.</p>      
+                </div>
+                </div>
+            <!-- <div class="w3-card-2 w3-padding"style ="height:auto; margin: 10px;" >Some Widgets
+                <div>
+                    <div class="w3-card-2 w3-mobile"style=" text-align:center;">
+                        <header class="w3-container w3-blue">
+                            <h3>Current Time</h3>
+                          </header>
+                        <div class=>
+                        <h2 id="onne">Current Time</h2>
+                        </div>
+                    </div>
+                    <div class="w3-card-2 w3-container  w3-cell " style="display: inline-block;">Prayer Time</div> 
+                    <div class="w3-card-2 w3-container w3-red w3-cell" style="display: inline-block;">Something Else</div>
+                </div>
+            </div> -->
+            <div  class="w3-card-2">
+                <div class="w3-container w3-lime">
+                    <h2 class=" ms-fontWeight-semibold ">The things that I can do</h2>
+                </div>
+            <div class="w3-container" id="background-part">
                 <ul>
                     <li>C/C++ Programming (I mostly do tutoring. Never develop much)</li>
                     <li>Java for Android Development (IIUM course schedule app)</li>
@@ -80,23 +125,51 @@
                     <li>Don't you know I can cook?</li>
                 </ul>
             </div>
+            </div>
             <div>
-                <div id="background-part" class="w3-card-2 w3-blue">
-                    <h2>Current Projects(in order of priority):</h2>
-                    <ul>
-                        <li>This website -> featuring Wasm,some JS code</li>
-                        <li>IIUM course schedule android App</li>
-                        <li>C++ Windows programming with SQLite</li>
-                        <li>Custom CRM app with Invoice generation</li>
-                        <li>Learning F#, or other Functional Programming languages</li>
-                    </ul>
+                <div  class="w3-card-2">
+                    <div class="w3-container w3-amber"> <h2 class="ms-fontWeight-semibold" >Current Projects(in order of priority):</h2></div>
+                    <div id="background-part">
+                        <ul>
+                            <li>This website -> featuring Wasm,some JS code</li>
+                            <li>IIUM course schedule android App</li>
+                            <li>C++ Windows programming with SQLite</li>
+                            <li>Custom CRM app with Invoice generation</li>
+                            <li>Learning F#, or other Functional Programming languages</li>
+                        </ul>
+                </div>
+                    
                 </div>
             </div>
         </div>
+        <script>
+            
+           function currentime(){
+            var d = new Date();
+            var time = document.getElementById('timeClock')
+            var hour =updateTime(d.getHours());
+            var min  =updateTime(d.getMinutes());
+            var sec = updateTime(d.getSeconds());
+            time.innerHTML = hour +":" + min +":" + sec;
+            var t = setTimeout(function(){ currentime() }, 1000);
+            console.log(time.innerText);
+           }
+           function updateTime(k) {
+                if (k < 10) {
+                     return "0" + k;
+                        }
+                else {
+                    return k;
+                        }
+             }
+            currentime();
+         
 
-
-
-
-
+           
+            
+            
+        
+            
+        </script>
     </body>
 </html>
