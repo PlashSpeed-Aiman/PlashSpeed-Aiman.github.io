@@ -2,7 +2,7 @@
   "name": "my-project",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://github.com/PlashSpeed-Aiman/PlashSpeed-Aiman.github.io",
+  "homepage": "https://plashspeed-aiman.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
