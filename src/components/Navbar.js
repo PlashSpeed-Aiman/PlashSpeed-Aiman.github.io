@@ -1,30 +1,64 @@
 // src/components/Navbar.js
 import Clock from "./Clock"
 import React from "react";
+import { Link} from "react-router-dom";
+import {  useState } from 'react';
 
 export default function Navbar() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <header className="bg-gray-800 md:sticky top-0 z-10">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <a className="title-font font-medium text-white mb-4 md:mb-0">
-          <a href="/" className="ml-3 text-xl">
+          <Link to="/" className="ml-3 text-xl">
             Aiman Rahim
-          </a>
+          </Link>
         </a>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
-          <a href="/#/lambda" className="inline-flex items-center mr-2 hover:text-white text-slate-200	 hover:bg-gray-700 p-2 rounded-md" >
+          <Link
+            to="/lambda"
+            className="inline-flex items-center mr-2 hover:text-white text-slate-200	 hover:bg-gray-700 p-2 rounded-md"
+          >
             Lambda
-          </a>
-          <a href="#/skills" className=" inline-flex mr-5 hover:text-white text-slate-200	 hover:bg-gray-700 p-2 rounded-md">
+          </Link>
+          <button
+            className=" inline-flex items-center mr-2 hover:text-white text-slate-200 hover:bg-gray-700 p-2 rounded-md focus:outline-none "
+            onClick={toggleDropdown}
+          >
             Gerakan Developer Tanahair
-          </a>
-          
+            <svg
+              className="fill-current h-4 w-4 ml-1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M6 8l4 4 4-4"></path>
+            </svg>
+          </button>
+          {isDropdownOpen && (
+            <div className="absolute bg-gray-800 py-2 rounded-md w-full mt-2 md:mt-0 md:w-auto md:mx-3 lg:-translate-x-10 md:-translate-x-10 translate-y-20 ">
+              <Link
+                to="/skills"
+                className="block px-4 py-2 text-white hover:text-gray-200"
+              >
+                Skill Sets
+              </Link>
+              <Link
+                to="/projects"
+                className="block px-4 py-2 text-white hover:text-gray-200"
+              >
+                Projects
+              </Link>
+            </div>
+          )}
         </nav>
-        <div
-          className="inline-flex items-center bg-gray-800 border-0 p-2 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
-          <Clock/>
+        <div className="inline-flex items-center bg-gray-800 border-0 p-2 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+          <Clock />
         </div>
       </div>
     </header>
-  );
-}
+  );}

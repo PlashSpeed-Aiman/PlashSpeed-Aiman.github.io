@@ -12,7 +12,22 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0 0;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transform: translate-y-2;
+}
 
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
