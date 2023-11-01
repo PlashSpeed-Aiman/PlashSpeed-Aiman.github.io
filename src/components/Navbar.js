@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="  ">
-      <div className=" flex flex-wrap p-6  flex-col md:flex-row items-center">
+      <div className=" flex flex-wrap py-6  flex-col md:flex-row items-center">
         <a className="title-font font-medium text-white mb-4 md:mb-0">
           <Link to="/" className="ml-3 text-xl text-gray-700">
             Aiman Rahim

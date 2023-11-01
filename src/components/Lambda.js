@@ -5,7 +5,7 @@ export default function Lambda() {
     <section className="">
       <div class="mx-10 md:lg:xl:mx-auto  md:py-16 lg:flex flex-col items-center">
         <div class=" ">
-          <h1 class="text-5xl font-bold mb-6 text-gray-900">Lambda</h1>
+          <h1 class="text-3xl font-bold mb-6 text-gray-900">Lambda</h1>
           <p class="text-lg leading-relaxed mb-8 text-gray-600 text-justify">
             Lambda is a small study group that I started with my junior and good
             friend, Akmal. We meet every week and discuss things on software

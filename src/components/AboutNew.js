@@ -3,8 +3,8 @@ import ProfileLinks from "../Constants/LinkConsts";
 import Hero from "../hero.jpg";
 export default function About() {
   return (
-    <div className="py-16">
-      <div className="mx-5  md:lg:mx-auto grid grid-cols-1 gap-8 lg:grid-cols-1 lg:items-center">
+    <div className="pt-2">
+      <div className="mx-10  md:lg:mx-auto grid grid-cols-1 gap-8 lg:grid-cols-1 lg:items-center">
         <div className="hidden mx-5 lg:mt-0 lg:col-span-1 lg:flex justify-center ">
           <figure className="grid grid-cols-1 justify-items-center">
             <img
@@ -18,16 +18,16 @@ export default function About() {
           </figure>
           
         </div>
-        <div class="flex flex-col  sm:flex-row  justify-center">
+        <div class="flex flex-col  md:flex-row  justify-center">
             <a
               href={ProfileLinks.GITHUB_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-white bg-green-500 hover:bg-green-600 px-6 py-3 rounded-md mb-4 sm:mr-4 sm:mb-0"
+              class="inline-flex items-center justify-center text-lg font-medium text-white bg-green-500 hover:bg-green-600 px-6 py-3 rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Github
             </a>
             <a
               href={ProfileLinks.LIBRARY_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-md mb-4 sm:mr-4 sm:mb-0"
+              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Library
             </a>
