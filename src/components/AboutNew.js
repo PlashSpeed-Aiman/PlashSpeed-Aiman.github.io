@@ -3,9 +3,9 @@ import ProfileLinks from "../Constants/LinkConsts";
 import Hero from "../hero.jpg";
 export default function About() {
   return (
-    <section class="flex items-center bg-gray-100 px-4 py-16 sm:px-6 lg:px-8">
-      <div class="container mx-auto grid grid-cols-1 gap-8 lg:grid-cols-1 lg:items-center">
-        <div className="hidden lg:mt-0 lg:col-span-1 lg:flex justify-center ">
+    <div className="py-16">
+      <div className="mx-5  md:lg:mx-auto grid grid-cols-1 gap-8 lg:grid-cols-1 lg:items-center">
+        <div className="hidden mx-5 lg:mt-0 lg:col-span-1 lg:flex justify-center ">
           <figure className="grid grid-cols-1 justify-items-center">
             <img
               className="rounded-md object-cover mr-5 w-80 h-80 shadow-md hover:shadow-lg transform transition duration-500 hover:scale-105"
@@ -18,7 +18,7 @@ export default function About() {
           </figure>
           
         </div>
-        <div class="flex flex-col sm:flex-row justify-center">
+        <div class="flex flex-col  sm:flex-row  justify-center">
             <a
               href={ProfileLinks.GITHUB_LINK}
               class="inline-flex items-center justify-center text-lg font-medium text-white bg-green-500 hover:bg-green-600 px-6 py-3 rounded-md mb-4 sm:mr-4 sm:mb-0"
@@ -38,9 +38,16 @@ export default function About() {
               LinkedIn
             </a>
           </div>
-        <div class="lg:col-span-1">
-          <h1 class="text-3xl font-bold mb-4">I'm Aiman Rahim</h1>
-          <h2 class="text-xl font-medium text-gray-600 mb-8 text-justify">
+        <div class="border-t-2 lg:col-span-1">
+          <h1 class="text-3xl font-bold mt-5 mb-2 text-center sm:text-justify">I'm Aiman Rahim</h1>
+          <div className="flex gap-1">
+            <p>About me</p>
+            <p>My Skills</p>
+
+
+          </div>
+
+          <h2 class="text-lg font-medium text-gray-600 mb-8 text-justify">
             This is my second website! <br /> I am currently in the process of
             rebuilding it using tailwindcss + ReactJS, so please excuse the
             slightly unappealing appearance. As an engineer, I am not known for
@@ -79,6 +86,6 @@ export default function About() {
           
         </div>
       </div>
-    </section>
+    </div>
   );
 }

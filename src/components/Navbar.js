@@ -12,22 +12,22 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-gray-800 md:sticky top-0 z-10">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <header className="  ">
+      <div className=" flex flex-wrap p-6  flex-col md:flex-row items-center">
         <a className="title-font font-medium text-white mb-4 md:mb-0">
-          <Link to="/" className="ml-3 text-xl">
+          <Link to="/" className="ml-3 text-xl text-gray-700">
             Aiman Rahim
           </Link>
         </a>
-        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
+        <nav className="  md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
           <Link
             to="/lambda"
-            className="inline-flex items-center mr-2 hover:text-white text-slate-200	 hover:bg-gray-700 p-2 rounded-md"
+            className="inline-flex items-center mr-2 hover:text-white text-gray-700	 hover:bg-gray-700 p-2 rounded-md"
           >
             Lambda
           </Link>
           <button
-            className=" inline-flex items-center mr-2 hover:text-white text-slate-200 hover:bg-gray-700 p-2 rounded-md focus:outline-none "
+            className="  inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-gray-700 p-2 rounded-md focus:outline-none "
             onClick={toggleDropdown}
           >
             Gerakan Developer Tanahair
@@ -40,16 +40,16 @@ export default function Navbar() {
             </svg>
           </button>
           {isDropdownOpen && (
-            <div className="absolute bg-gray-800 py-2 rounded-md w-full mt-2 md:mt-0 md:w-auto md:mx-3 lg:-translate-x-10 md:-translate-x-10 translate-y-20 ">
+            <div className="absolute bg-gray-100 py-2 rounded-md w-full mx-auto  md:mt-0 md:w-auto md:mx-3 lg:-translate-x-10 md:-translate-x-10 translate-y-20 ">
               <Link
                 to="/skills"
-                className="block px-4 py-2 text-white hover:text-gray-200"
+                className="block px-4 py-2 text-gray-700 hover:text-gray-200"
               >
                 Skill Sets
               </Link>
               <Link
                 to="/projects"
-                className="block px-4 py-2 text-white hover:text-gray-200"
+                className="block px-4 py-2 text-gray-700 hover:text-gray-200"
               >
                 Projects
               </Link>

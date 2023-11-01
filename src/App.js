@@ -7,15 +7,15 @@ import { HashRouter,Router, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <>
-    <Navbar />
-    <Routes>
-      <Route index path="/" element={<About />} />
-      <Route path="/lambda" element={<Lambda />} />
-      </Routes>    
-    
-      
-    
-      
+      <div className="mx-auto max-w-3xl items-center">
+        <Navbar />
+
+        <Routes>
+          <Route index path="/" element={<About />} />
+          <Route path="/lambda" element={<Lambda />} />
+        </Routes>
+      </div>
+
     
     </>
   );
