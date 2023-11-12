@@ -43,8 +43,6 @@ export default function About() {
           <div className="flex gap-1">
             <p>About me</p>
             <p>My Skills</p>
-
-
           </div>
 
           <h2 class="text-lg font-medium text-gray-600 mb-8 text-justify">
@@ -73,19 +71,19 @@ export default function About() {
           <p class="text-lg leading-7 text-gray-600 mb-8 text-justify">
             Apart from my work, I'm currently building two startups. The first
             is a software training company that I founded with a friend. The
-            second is Projek Gerakan Developer Tanahair (Project Homeland
+            second is Project <Link className={"hover:underline text-blue-600"} to={"/about-gerakan"}>Gerakan Developer Tanahair</Link>  (Project Homeland
             Developer Movement), a community aimed at growing a developer
             culture in IIUM.
           </p>
           <p class="text-lg leading-7 text-gray-600 mb-8 text-justify">
             When I'm not programming, I like to read, cook, and learn Dutch.
           </p>
-          <p class="bg-orange-600 text-lg text-white p-2 mb-8">
-            Welkom bij mijn website! Ik ben een Developer.
-          </p>
+
           
         </div>
+
       </div>
+
     </div>
   );
 }
