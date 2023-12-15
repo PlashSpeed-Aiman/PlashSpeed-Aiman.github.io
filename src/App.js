@@ -1,10 +1,11 @@
-import logo from "./logo.svg";
 import "./App.css";
 import About from "./components/AboutNew";
 import Navbar from "./components/Navbar";
 import Lambda from "./components/Lambda";
-import { HashRouter,Router, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import AboutGerakan from "./components/Gerakan/AboutGerakan";
+import NotFound from "./components/NotFound";
+import QrCode from "./components/Utilities/QrCode";
 function App() {
   return (
     <>
@@ -16,6 +17,8 @@ function App() {
           <Route index path="/" element={<About />} />
           <Route path="/lambda" element={<Lambda />} />
           <Route path="/about-gerakan" element={<AboutGerakan />} />
+            <Route path="*" element={<NotFound/>} />
+            <Route path="/qr" element={<QrCode/>} />
         </Routes>
 
       </div>
