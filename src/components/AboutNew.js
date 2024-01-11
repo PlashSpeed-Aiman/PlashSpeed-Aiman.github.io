@@ -34,14 +34,13 @@ export default function About() {
             break;
     }
     setShowTooltip(true);
+  }
 
+  function setCoordinates(e){
     setMouseX(e.nativeEvent.pageX );
     setMouseY(e.nativeEvent.pageY);
-
-
-
-
   }
+
   function toggle() {
     setActive(!active);
     setShowTooltip(false)
@@ -91,15 +90,15 @@ export default function About() {
           {active && (
                 <div className={'fade-in max-w-lg  flex flex-row mx-auto gap-2 mt-4'}>
 
-                    <button onMouseOut={e => setShowTooltip(false)} onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>C#</button>
+                    <button onMouseOut={e => setShowTooltip(false)} onMouseOver={setTooltip} onMouseMove={setCoordinates}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>C#</button>
 
-                    <button onMouseOut={e => setShowTooltip(false)}  onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>Python</button>
+                    <button onMouseOut={e => setShowTooltip(false)}  onMouseMove={setCoordinates} onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>Python</button>
 
-                    <button onMouseOut={e => setShowTooltip(false)}  onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>Go</button>
+                    <button onMouseOut={e => setShowTooltip(false)}  onMouseMove={setCoordinates} onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>Go</button>
 
-                    <button onMouseOut={e => setShowTooltip(false)}  onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>JS/TS</button>
+                    <button onMouseOut={e => setShowTooltip(false)} onMouseMove={setCoordinates} onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>JS/TS</button>
 
-                    <button onMouseOut={e => setShowTooltip(false)}  onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>OCaml</button>
+                    <button onMouseOut={e => setShowTooltip(false)}  onMouseMove={setCoordinates} onMouseOver={setTooltip}  className={'rounded-md bg-zinc-50 px-2 py-1.5 w-full transition hover:bg-orange-500'}>OCaml</button>
 
 
                 </div>

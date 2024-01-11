@@ -19,7 +19,17 @@ body{
 .fade-out {
   animation: fadeinLeft 0.5s ease-in-out;
 }
-
+.really-fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes fadeinRight {
   0% {
     transform: translateY(300px);
