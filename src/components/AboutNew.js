@@ -10,6 +10,7 @@ export default function About() {
   const [active, setActive] = useState(false);
   const [picture, setPicture] = useState(Hero);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showSquare, setShowSquare] = useState(false);
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
   const [lang, setLang] = useState("CSharp");
@@ -36,6 +37,20 @@ export default function About() {
     setShowTooltip(true);
   }
 
+  function imageBlurEffect(e) {
+      let x= document.getElementById("hero").getBoundingClientRect();
+      if(e.nativeEvent === undefined) return
+      if (e.nativeEvent.pageX > x.left && e.nativeEvent.pageX < x.right && e.nativeEvent.pageY > x.top && e.nativeEvent.pageY < x.bottom ) {
+
+          setShowSquare(true);
+          setCoordinates(e);
+
+      }
+      else{
+          setShowSquare(false);
+
+      }
+  }
   function setCoordinates(e){
     setMouseX(e.nativeEvent.pageX );
     setMouseY(e.nativeEvent.pageY);
@@ -52,10 +67,14 @@ export default function About() {
         <div className="hidden mx-5 lg:mt-0 lg:col-span-1 lg:flex justify-center ">
           <figure className="grid grid-cols-1 justify-items-center">
             <img
+                id={'hero'}
+                onMouseEnter={e => setShowSquare(true)}
+                onMouseMove={e => setCoordinates(e)}
               className="fade-in rounded-md object-cover mr-5 w-80 h-80 shadow-md hover:shadow-lg  transition-all transform duration-500 hover:scale-105"
               src={picture}
               alt="mockup"
             />
+
             <figcaption className="text-sm font-medium text-gray-500 mt-2">
               I looked much different now
             </figcaption>

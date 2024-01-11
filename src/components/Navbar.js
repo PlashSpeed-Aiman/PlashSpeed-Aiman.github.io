@@ -50,11 +50,11 @@ export default function Navbar() {
     <header  className="">
       <div className=" flex flex-wrap p-6  flex-col md:flex-row items-center">
         <a className="title-font font-medium text-white mb-4 md:mb-0">
-          <Link to="/" className="ml-3 text-xl text-gray-700">
+          <Link to="/" className="text-xl text-gray-700">
             Aiman Rahim
           </Link>
         </a>
-        <nav className="  md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
+        <nav className=" md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
 
           <div ref={wrapperRef} >
             <button
@@ -128,9 +128,9 @@ export default function Navbar() {
           </div>
 
         </nav>
-        <div className="inline-flex items-center bg-gray-800 border-0 p-2 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+        <button className="w-32 inline-flex justify-center items-center bg-gray-800 border-0 p-2 focus:outline-none active:shadow hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
           <Clock />
-        </div>
+        </button>
       </div>
     </header>
   );}

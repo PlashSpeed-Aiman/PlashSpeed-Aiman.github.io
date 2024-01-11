@@ -11,8 +11,11 @@ function App() {
     return (
         <>
             <div className="flex flex-col h-screen justify-between ">
-                <div className="mx-auto max-w-3xl items-center">
+                <div className='max-w-3xl mx-auto'>
                     <Navbar/>
+                </div>
+
+                <div className="mx-auto max-w-3xl items-center">
 
                     <Routes>
                         <Route index path="/" element={<About/>}/>
