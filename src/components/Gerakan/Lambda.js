@@ -1,5 +1,5 @@
-import pic from "../1679732830286.jpg";
-import pic2 from "../2022.jpg";
+import pic from "../../1679732830286.jpg";
+import pic2 from "../../2022.jpg";
 export default function Lambda() {
   return (
     <section className="">
