@@ -22,7 +22,7 @@ function App() {
                     <Routes>
                         <Route index path="/" element={<About/>}/>
                         <Route path="/lambda" element={<Lambda/>}/>
-                        <Route path="/about-gerakan" element={<AboutGerakan/>}/>
+                        <Route path="/gerakan" element={<AboutGerakan/>}/>
                         <Route path="/activities" element={<Activities/>}/>
                         <Route path="*" element={<NotFound/>}/>
                         <Route path="/qr" element={<QrCode/>}/>
