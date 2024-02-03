@@ -84,26 +84,26 @@ export default function About() {
         <div class="flex flex-col  md:flex-row  justify-center">
             <a
               href={ProfileLinks.GITHUB_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-white bg-green-500 hover:bg-green-600 px-6 py-3 rounded-md mb-4 md:mr-4 md:mb-0"
+              class="inline-flex items-center justify-center text-lg font-medium text-white bg-dark px-6 py-2.5  rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Github
             </a>
             <a
               href={ProfileLinks.LIBRARY_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-md mb-4 md:mr-4 md:mb-0"
+              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Library
             </a>
             <a
               href={ProfileLinks.LINKEDIN_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-md"
+              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md"
             >
               LinkedIn
             </a>
           </div>
         <div className=" border-t-2 lg:col-span-1">
           <h1 className="text-3xl font-bold mt-5 mb-2 text-center sm:text-justify">I'm Aiman Rahim , Grad.Eng</h1>
-          <button className={"border rounded-lg bg-zinc-50 px-1 py-0.5 -mx-1 transition active:shadow"} onClick={toggle}>Toggle My Skills
+          <button className={"border border-orange-400 rounded-xl bg-orange-500 text-white px-1.5 py-1 -mx-1 transition active:shadow"} onClick={toggle}>Toggle My Skills
           </button>
 
           {active && (

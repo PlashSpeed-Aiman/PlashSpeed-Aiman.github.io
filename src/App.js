@@ -6,6 +6,7 @@ import {Route, Routes} from "react-router-dom";
 import AboutGerakan from "./components/Gerakan/AboutGerakan";
 import NotFound from "./components/NotFound";
 import QrCode from "./components/Utilities/QrCode";
+import {WhatsApp} from "./components/Utilities/WhatsApp";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                         <Route path="/about-gerakan" element={<AboutGerakan/>}/>
                         <Route path="*" element={<NotFound/>}/>
                         <Route path="/qr" element={<QrCode/>}/>
+                        <Route path="/whatsapp-tool" element={<WhatsApp/>}/>
                     </Routes>
 
                 </div>

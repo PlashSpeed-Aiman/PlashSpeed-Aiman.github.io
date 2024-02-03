@@ -58,7 +58,7 @@ export default function Navbar() {
 
           <div ref={wrapperRef} >
             <button
-                className=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-gray-700 p-2 rounded-md focus:outline-none "
+                className=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-dark p-2 rounded-md focus:outline-none "
                 onClick={toggleDropdown}
             >
               Gerakan Developer Tanahair
@@ -96,7 +96,7 @@ export default function Navbar() {
           </div>
           <div ref={utilRef}>
             <button
-                className=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-gray-700 p-2 rounded-md focus:outline-none "
+                className=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-dark p-2 rounded-md focus:outline-none "
                 onClick={toggleDropdownUtil}
             >
               Utilities
@@ -128,7 +128,7 @@ export default function Navbar() {
           </div>
 
         </nav>
-        <button className="w-32 inline-flex justify-center items-center bg-gray-800 border-0 p-2 focus:outline-none active:shadow hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+        <button className="w-32 inline-flex justify-center items-center bg-dark p-2 focus:outline-none active:shadow hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
           <Clock />
         </button>
       </div>
