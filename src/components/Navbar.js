@@ -73,12 +73,17 @@ export default function Navbar() {
             {open && (
                 <div className="absolute bg-gray-100 py-2 rounded-md mx-auto md:mt-0 md:w-auto md:mx-3 lg:-translate-x-3 md:translate-x-3 translate-y-2 z-40 ">
                   <Link
-                      to="/about-gerakan"
+                      to="/gerakan"
                       className="block px-4 py-2 text-gray-700 hover:text-gray-400"
                   >
                     About
                   </Link>
-
+                    <Link
+                        to="/activities"
+                        className="block px-4 py-2 text-gray-700 hover:text-gray-400"
+                    >
+                        Activities
+                    </Link>
                   <Link
                       to="/lambda"
                       className="block px-4 py-2 text-gray-700 hover:text-gray-400"
