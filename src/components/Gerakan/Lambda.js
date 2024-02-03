@@ -16,17 +16,20 @@ export default function Lambda() {
             <h2 className="text-xl font-bold mb-4 text-gray-900">
               Topics We Cover
             </h2>
-            <ul className="list-disc pl-6 text-gray-600">
-              <li>Telegram bot</li>
-              <li>Async IO in Python</li>
-              <li>F#</li>
-              <li>Websockets</li>
-              <li>SignalR</li>
-              <li>
-                Reactive Extensions (this one is the hardest to understand till
-                this day)
-              </li>
-            </ul>
+            <div className='bg-white rounded-md shadow p-2'>
+              <ul className="list-disc pl-6 text-gray-600">
+                <li>Telegram bot</li>
+                <li>Async IO in Python</li>
+                <li>F#</li>
+                <li>Websockets</li>
+                <li>SignalR</li>
+                <li>
+                  Reactive Extensions (this one is the hardest to understand till
+                  this day)
+                </li>
+              </ul>
+            </div>
+
           </div>
           <p className="text-lg leading-relaxed mb-8 text-gray-600 text-justify">
             I regularly open applications to join every semester, but the group

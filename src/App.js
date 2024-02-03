@@ -7,6 +7,7 @@ import AboutGerakan from "./components/Gerakan/AboutGerakan";
 import NotFound from "./components/NotFound";
 import QrCode from "./components/Utilities/QrCode";
 import {WhatsApp} from "./components/Utilities/WhatsApp";
+import Activities from "./components/Gerakan/Activities";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                         <Route index path="/" element={<About/>}/>
                         <Route path="/lambda" element={<Lambda/>}/>
                         <Route path="/about-gerakan" element={<AboutGerakan/>}/>
+                        <Route path="/activities" element={<Activities/>}/>
                         <Route path="*" element={<NotFound/>}/>
                         <Route path="/qr" element={<QrCode/>}/>
                         <Route path="/whatsapp-tool" element={<WhatsApp/>}/>
