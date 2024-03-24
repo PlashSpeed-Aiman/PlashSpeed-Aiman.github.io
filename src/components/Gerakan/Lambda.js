@@ -13,26 +13,27 @@ export default function Lambda() {
             The current iteration is called Projek Gerakan Developer Tanahair.
           </p>
           <div className="mb-8">
-            <h2 className="text-xl font-bold mb-4 text-gray-900">
-              Topics We Cover
-            </h2>
-            <div className='bg-white rounded-md shadow p-2'>
-              <ul className="list-disc pl-6 text-gray-600">
-                <li>Telegram bot</li>
-                <li>Async IO in Python</li>
-                <li>F#</li>
-                <li>Websockets</li>
-                <li>SignalR</li>
-                <li>
+
+            <div className='bg-zinc-50 rounded-md shadow p-2'>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900">
+                Topics We Cover
+              </h2>
+              <div className=" text-gray-700 ">
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">Telegram bot</p>
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">Async IO in Python</p>
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">F#</p>
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">Websockets</p>
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">SignalR</p>
+                <p className="bg-zinc-100 rounded shadow p-1 my-3">
                   Reactive Extensions (this one is the hardest to understand till
                   this day)
-                </li>
-              </ul>
+                </p>
+              </div>
             </div>
 
           </div>
           <p className="text-lg leading-relaxed mb-8 text-gray-600 text-justify">
-            I regularly open applications to join every semester, but the group
+          I regularly open applications to join every semester, but the group
             has a strict attendance policy. You can only miss 2 classes per
             month or you will be removed immediately until next month's study
             sessions.

@@ -81,22 +81,22 @@ export default function About() {
           </figure>
 
         </div>
-        <div class="flex flex-col  md:flex-row  justify-center">
+        <div class="flex flex-col w-full  md:flex-row items-center  justify-center">
             <a
               href={ProfileLinks.GITHUB_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-white bg-dark px-6 py-2.5  rounded-md mb-4 md:mr-4 md:mb-0"
+              class="inline-flex w-full flex-1 items-center justify-center text-lg font-medium text-white bg-dark px-6 py-2.5  rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Github
             </a>
             <a
               href={ProfileLinks.LIBRARY_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md mb-4 md:mr-4 md:mb-0"
+              class="inline-flex  w-full flex-1 items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md mb-4 md:mr-4 md:mb-0"
             >
               Library
             </a>
             <a
               href={ProfileLinks.LINKEDIN_LINK}
-              class="inline-flex items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md"
+              class="inline-flex w-full flex-1 items-center justify-center text-lg font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 px-6 py-2.5 rounded-md"
             >
               LinkedIn
             </a>
@@ -123,21 +123,24 @@ export default function About() {
                 </div>
           )}
           {showTooltip && <Tooltip x={mouseX} y={mouseY}  text={langMap[lang]} />}
+            <section className="border -mx-1 p-1 bg-zinc-50 rounded-md text-lg shadow font-medium text-gray-700 my-4 text-justify">
+                <p className="text-2xl text-black py-3 px-3">This is my second website!</p>
+                <p className="px-3 pb-3">
+                    I am currently in the process of
+                    rebuilding it using tailwindcss + ReactJS, so please excuse the
+                    slightly unappealing appearance. As an engineer, I am not known for
+                    having a keen sense of aesthetics, but I am excited to challenge
+                    myself and improve my design skills.
+                </p>
+            </section>
 
-          <p className="border -mx-1 p-2 bg-zinc-50 rounded-md text-lg shadow-sm font-medium text-gray-600 my-4 text-justify">
-            This is my second website! <br/> I am currently in the process of
-            rebuilding it using tailwindcss + ReactJS, so please excuse the
-            slightly unappealing appearance. As an engineer, I am not known for
-            having a keen sense of aesthetics, but I am excited to challenge
-            myself and improve my design skills.
-          </p>
-          <p className="text-lg leading-7 text-gray-600 mb-8 text-justify">
-            As a Biochemical Engineering Graduate with 2 years of programming
-            experience, I've found a passion for creating software that helps
-            people solve their problems. (The Grad.Eng title is just a free title I got for completing my degree)
-          </p>
-          <p className="text-lg leading-7 text-gray-600 mb-8 text-justify">
-            I've gained my experience through freelancing, hackathons, and
+            <p className="text-lg leading-7 text-gray-600 mb-8 text-justify">
+                As a Biochemical Engineering Graduate with 2 years of programming
+                experience, I've found a passion for creating software that helps
+                people solve their problems. (The Grad.Eng title is just a free title I got for completing my degree)
+            </p>
+            <p className="text-lg leading-7 text-gray-600 mb-8 text-justify">
+                I've gained my experience through freelancing, hackathons, and
             working on projects with friends. Currently, I share my knowledge by
             giving Java lectures at KICT IIUM as a part-time programming tutor. I am also a C# Backend Software Engineer
           </p>
