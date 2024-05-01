@@ -60,6 +60,7 @@ export default function QrCode() {
                         <p>{qrCodeUrl.description}</p>
                         </div>
                     }
+                    <button onClick={generateQrCode} className="bg-orange-500 text-white px-2 py-1 rounded-md">Generate QR Code</button>
                 </div>
             </div>
         </section>
