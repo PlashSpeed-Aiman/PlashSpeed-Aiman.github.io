@@ -13,12 +13,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-
+    - uses: oven-sh/setup-bun@v1
     - name: install node modules
-      run: npm install
+      run: bun install
 
     - name: build react app
-      run: npm run build
+      run: bun run build
       env:
         CI: ""
 

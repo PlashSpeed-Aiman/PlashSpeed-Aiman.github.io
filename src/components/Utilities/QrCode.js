@@ -11,6 +11,8 @@ function debounce(func, timeout = 300){
 export default function QrCode() {
 
     const [qrCode, setQrCode] = useState(null);
+    //use ref
+
     const [qrCodeUrl, setQrCodeUrl] = useState({
         url: null,
         description: null
@@ -20,8 +22,17 @@ export default function QrCode() {
         if (qrCode) {
             window.open(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCode}`);
         }
-
+    const downloadPng = () => {
+        if (qrCode) {
+            const link = document.createElement('a');
+            link.download = 'qr-code.png';
+            link.href = qrCodeUrl.url;
+            link.click();
+        }
     }
+
+
+
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             // Make API request with the current value
@@ -60,10 +71,10 @@ export default function QrCode() {
                         <p>{qrCodeUrl.description}</p>
                         </div>
                     }
-                    <button onClick={generateQrCode} className="bg-orange-500 text-white px-2 py-1 rounded-md">Generate QR Code</button>
+                    <button onClick={downloadPng} className="bg-orange-500 text-white px-2 py-1 rounded-md">Generate QR Code</button>
                 </div>
             </div>
         </section>
 
         )
-}
+}}
