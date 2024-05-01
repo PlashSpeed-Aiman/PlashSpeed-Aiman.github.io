@@ -71,7 +71,7 @@ export default function QrCode() {
                         <p>{qrCodeUrl.description}</p>
                         </div>
                     }
-                    <button onClick={downloadPng} className="bg-orange-500 text-white px-2 py-1 rounded-md">Generate QR Code</button>
+                    <button onClick={downloadPng} className="bg-orange-500 text-white my-1 px-2 py-2 rounded-md">Download QR Code</button>
                 </div>
             </div>
         </section>
