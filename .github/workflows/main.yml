@@ -19,6 +19,8 @@ jobs:
 
     - name: build react app
       run: npm run build
+      env:
+        CI: ""
 
     - name: configure git user
       run: git config user.name github-actions
