@@ -11,7 +11,6 @@ function debounce(func, timeout = 300){
 export default function QrCode() {
 
     const [qrCode, setQrCode] = useState(null);
-    //use ref
 
     const [qrCodeUrl, setQrCodeUrl] = useState({
         url: null,
@@ -22,6 +21,7 @@ export default function QrCode() {
         if (qrCode) {
             window.open(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCode}`);
         }
+    }
     const downloadPng = () => {
         if (qrCode) {
             const link = document.createElement('a');
@@ -77,4 +77,4 @@ export default function QrCode() {
         </section>
 
         )
-}}
+}
