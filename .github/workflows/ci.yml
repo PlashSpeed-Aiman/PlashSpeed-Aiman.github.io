@@ -30,6 +30,6 @@ jobs:
 
       - name: deploy to github pages
         run: |
-          git --work-tree build add --all
+          git --work-tree dist add --all
           git commit -m "deploy to github pages"
           git push origin HEAD:gh-pages --force
