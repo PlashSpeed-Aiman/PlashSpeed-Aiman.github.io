@@ -12,9 +12,7 @@ import Navbar from "./components/Navbar.vue";
       <Navbar/>
     </div>
     <router-view className="mx-auto max-w-3xl items-center" v-slot="{ Component }">
-      <transition name="slide">
         <component :is="Component" />
-      </transition>
     </router-view>
 
     <footer class="bg-orange-800 opacity-75 mt-10 text-center md:lg:text-start text-lg text-white p-2 ">
