@@ -34,8 +34,8 @@
           </div>
           <div class="bg-gradient-to-l from-gray-400 to-gray-200 p-5 rounded-md">
             <h3 class="text-2xl font-bold">DevOps</h3>
-            <p class="text-lg">I have experience with Docker. Have some working knowledge on how to make docker images and get things up and running with docker compose.
-              ToyyibPay (yes, the payment gateway company) even invited me for a sharing session on docker
+            <p class="text-lg"> Have some working knowledge on how to make Docker images and get things up and running with Docker compose.
+              ToyyibPay (yes, the payment gateway company) even invited me for a sharing session on Docker
             </p>
           </div>
         </div>

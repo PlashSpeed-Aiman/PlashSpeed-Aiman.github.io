@@ -6,6 +6,8 @@ const routes = [{
     component: About
 
 },{
+    path:'/gerakan',
+    component: ()=> import('./components/Gerakan.vue')
 }]
 
 export default routes;
