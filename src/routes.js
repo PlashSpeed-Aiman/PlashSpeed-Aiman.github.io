@@ -2,11 +2,11 @@ import About from "./components/About.vue";
 
 
 const routes = [{
-    path:'/',
+    path:'#/',
     component: About
 
 },{
-    path:'/gerakan',
+    path:'#/gerakan',
     component: ()=> import('./components/Gerakan.vue')
 
 },
