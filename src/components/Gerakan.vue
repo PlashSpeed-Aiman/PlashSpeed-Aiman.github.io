@@ -18,6 +18,8 @@
         <br/>
         <p class="text-lg text-justify">Our numbers are growing and we are always looking for new members to join us. If you are interested in technology and want to make a difference, come join us!</p>
         <hr class="my-5"/>
+        <h1 class="text-3xl font-bold mt-5 mb-2 text-center sm:text-justify">Why Join Us</h1>
+        <p class="text-lg text-justify">We strive to leave an impact on the world through technology </p>
 
       </div>
 
