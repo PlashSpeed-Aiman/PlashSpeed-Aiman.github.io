@@ -17,6 +17,16 @@
       <div class="bg-white shadow-md px-5 rounded-md   lg:col-span-1">
         <h1 class="text-5xl font-bold mt-5 mb-2 text-center sm:text-justify">I'm Aiman Rahim , Grad.Eng</h1>
         <p class="text-lg text-justify">I've been doing software development for almost 3 years with a focus on backend. My projects range from small hobby projects to large  enterprise  applications. Currently working and building software for the Oil and Gas sector.</p>
+        <h1  class="text-3xl font-bold mt-5 mb-2 text-center sm:text-justify">Tech Stacks</h1>
+        <div class="flex gap-1">
+          <img alt="C#" src="https://img.shields.io/badge/-C%23-blue?style=flat&logo=c-sharp">
+          <img alt="F#" src="https://img.shields.io/badge/-F%23-000000?style=flat&logo=f-sharp">
+          <img alt=".NET" src="https://img.shields.io/badge/-.NET-512BD4?style=flat&logo=.net">
+          <img alt="Vue.js" src="https://img.shields.io/badge/-Vue.js-4FC08D?style=flat&logo=vue.js">
+          <img alt="OCaml" src="https://img.shields.io/badge/-OCaml-EC6813?style=flat&logo=ocaml">
+          <img alt="Go" src="https://img.shields.io/badge/-Go-000000?style=flat&logo=go">
+          <img alt="Docker" src="https://img.shields.io/badge/-Docker-000000?style=flat&logo=docker">
+        </div>
         <hr class="my-5"/>
         <h2 class="text-3xl font-bold mt-5 mb-2 text-center sm:text-justify">Skills</h2>
         <div class="my-5 grid grid-cols-1 gap-4 md:grid-cols-2">
