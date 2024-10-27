@@ -46,22 +46,19 @@ onMounted(()=>{
 </script>
 
 <template>
-  <header  class="">
-    <div class=" flex flex-wrap p-6  flex-col md:flex-row items-center">
-      <a class="title-font font-medium text-white mb-4 md:mb-0">
-        <RouterLink to="/" class="text-xl text-gray-700">
-          Aiman Rahim
-        </RouterLink>
-      </a>
+    <div class=" flex flex-wrap px-2 py-4  flex-col md:flex-row items-center">
+      <RouterLink to="/" class="font-medium  text-xl text-gray-900">
+        Aiman Rahim
+      </RouterLink>
       <nav class=" md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
         <RouterLink
             to="/"
-            class="mr-5 hover:text-white text-gray-700 hover:bg-dark p-2 rounded-md focus:outline-none" >
+            class="mr-5 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none" >
           Blog
         </RouterLink>
         <div >
           <button ref="dropDownRef"
-              class=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-dark p-2 rounded-md focus:outline-none "
+              class=" inline-flex items-center mr-2 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none "
               @click="toggleDropdown"
           >
             Gerakan Developer Tanahair
@@ -105,7 +102,7 @@ onMounted(()=>{
 
         <div >
           <button ref="dropDownRefUtil"
-              class=" inline-flex items-center mr-2 hover:text-white text-gray-700 hover:bg-dark p-2 rounded-md focus:outline-none "
+              class=" inline-flex items-center mr-2 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none "
               @click="toggleDropdownUtil"
           >
             Utilities
@@ -139,7 +136,6 @@ onMounted(()=>{
       </nav>
       <Clock/>
     </div>
-  </header>
 </template>
 
 <style scoped>
