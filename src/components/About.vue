@@ -25,7 +25,7 @@
 
         <!-- Profile Description -->
         <p class="text-lg text-gray-700 leading-relaxed">
-          I've been doing software development for almost 3 years with a focus on backend.
+          I've been doing software development for almost 3 years with a focus on backend and I help build #GerakanDeveloperTanahAir
         </p>
 
         <!-- Tech Stacks Section -->
