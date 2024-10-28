@@ -13,7 +13,7 @@ onMounted(()=>{
     <a class='cursor-pointer w-32 inline-flex
     justify-center items-center bg-dark p-2
     focus:outline-none active:shadow hover:bg-gray-700 rounded text-base
-    mt-4 md:mt-0 hover:text-white'>{{clockState}}</a>
+    mt-4 md:mt-0 transition-colors hover:text-white'>{{clockState}}</a>
 </template>
 
 <style scoped>
