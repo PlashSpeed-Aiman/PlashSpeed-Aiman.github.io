@@ -46,7 +46,9 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div class=" flex flex-wrap px-2 py-4  flex-col md:flex-row items-center">
+  <header>
+
+    <div class="flex flex-wrap px-2 py-4  flex-col md:flex-row items-center">
       <RouterLink to="/" class="font-medium  text-xl text-gray-900">
         Aiman Rahim
       </RouterLink>
@@ -136,6 +138,8 @@ onMounted(()=>{
       </nav>
       <Clock/>
     </div>
+  </header>
+
 </template>
 
 <style scoped>
