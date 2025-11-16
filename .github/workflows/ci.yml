@@ -2,9 +2,9 @@ name: Vue website deployment
 
 on:
   push:
-    branches: [ 2024 ]
+    branches: [ 2026 ]
   pull_request:
-    branches: [ 2024 ]
+    branches: [ 2026 ]
 
 jobs:
   build:
