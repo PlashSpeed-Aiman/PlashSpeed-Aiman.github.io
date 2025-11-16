@@ -1,21 +1,39 @@
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
-const clockState = ref(new Date().toLocaleTimeString())
-onMounted(()=>{
-  setInterval(()=>{
-    clockState.value = new Date().toLocaleTimeString()
+const clockState = ref(new Date().toLocaleTimeString('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false
+}))
+
+let intervalId = null
+
+onMounted(() => {
+  intervalId = setInterval(() => {
+    clockState.value = new Date().toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    })
   }, 1000)
+})
+
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId)
 })
 </script>
 
 <template>
-    <a class='cursor-pointer w-32 inline-flex
-    justify-center items-center bg-dark p-2
-    focus:outline-none active:shadow hover:bg-gray-700 rounded text-base
-    mt-4 md:mt-0 transition-colors hover:text-white'>{{clockState}}</a>
+  <div class="px-3 py-1.5 rounded-md border border-stone-300 bg-stone-50 hover:bg-stone-100 transition-colors duration-200">
+    <span class="font-mono text-sm text-stone-950 tabular-nums">
+      {{ clockState }}
+    </span>
+  </div>
 </template>
 
 <style scoped>
-
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
 </style>

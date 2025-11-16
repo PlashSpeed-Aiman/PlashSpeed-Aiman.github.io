@@ -1,152 +1,229 @@
 <script setup>
-import {onMounted, ref} from 'vue'
-import Clock from "./Clock.vue";
+import { onMounted, ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import Clock from "./Clock.vue"
 
+const route = useRoute()
 const dropDownOpen = ref(false)
 const dropDownOpenUtil = ref(false)
 const dropDownRef = ref(null)
 const dropDownRefUtil = ref(null)
+const isScrolled = ref(false)
 
 const toggleDropdown = () => {
   dropDownOpen.value = !dropDownOpen.value
+  if (dropDownOpen.value) dropDownOpenUtil.value = false
 }
+
 const toggleDropdownUtil = () => {
   dropDownOpenUtil.value = !dropDownOpenUtil.value
+  if (dropDownOpenUtil.value) dropDownOpen.value = false
 }
 
-const clickOutsideDropdown = (e) => {
-  if (dropDownRef.value && !dropDownRef.value.contains(e.target)) {
-    dropDownOpen.value = false
-  }
-}
-const clickOutsideDropdownUtil = (e) => {
-  if (dropDownRefUtil.value && !dropDownRefUtil.value.contains(e.target)) {
-    dropDownOpenUtil.value = false
-  }
+const isActive = (path) => {
+  return route.path === path
 }
 
-
-onMounted(()=>{
-  document.addEventListener("click", (e)=>{
-    if(e.target === dropDownRefUtil.value|| e.target.parentNode === dropDownRefUtil.value) {
+onMounted(() => {
+  // Click outside handler
+  document.addEventListener("click", (e) => {
+    if(e.target === dropDownRefUtil.value || e.target.parentNode === dropDownRefUtil.value) {
       dropDownOpen.value = false
-      return;
+      return
     }
     if(e.target === dropDownRef.value || e.target.parentNode === dropDownRef.value) {
       dropDownOpenUtil.value = false
-      return;
+      return
     }
 
     dropDownOpen.value = false
     dropDownOpenUtil.value = false
-
-
   })
+
+  // Scroll handler for glass effect
+  const handleScroll = () => {
+    isScrolled.value = window.scrollY > 20
+  }
+  window.addEventListener('scroll', handleScroll)
+})
+
+const navClasses = computed(() => {
+  return isScrolled.value
+    ? 'glass shadow-lg'
+    : 'bg-white/60 backdrop-blur-md border-b border-stone-200/30'
 })
 </script>
 
 <template>
-  <header>
-
-    <div class="flex flex-wrap px-2 py-4  flex-col md:flex-row items-center">
-      <RouterLink to="/" class="font-medium  text-xl text-gray-900">
-        Aiman Rahim
-      </RouterLink>
-      <nav class=" md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700	flex flex-wrap items-center text-base justify-center">
-        <RouterLink
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div :class="`${navClasses}`">
+      <div class="max-w-8xl mx-auto px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo with micro-offset (8px to the right) -->
+          <RouterLink
             to="/"
-            class="mr-5 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none" >
-          Blog
-        </RouterLink>
-        <div >
-          <button ref="dropDownRef"
-              class=" inline-flex items-center mr-2 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none "
-              @click="toggleDropdown"
+            class="font-semibold text-xl text-stone-950 hover:text-amber-600 transition-colors duration-200 tracking-tight"
+            style="margin-left: 8px;"
           >
-            Gerakan Developer Tanahair
-            <svg
-                class="fill-current h-4 w-4 ml-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-            >
-              <path d="M6 8l4 4 4-4"></path>
-            </svg>
-          </button>
-            <transition name="fade">
-          <div  v-if="dropDownOpen" class="absolute bg-gray-100 py-2 rounded-md mx-auto md:mt-0 md:w-auto md:mx-3 lg:-translate-x-3 md:translate-x-3 translate-y-2 z-40 ">
+            Aiman Rahim
+          </RouterLink>
+
+          <!-- Navigation Links -->
+          <nav class="hidden md:flex items-center space-x-1">
             <RouterLink
-                to="/gerakan"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
+              to="/"
+              :class="[
+                'px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group',
+                isActive('/')
+                  ? 'text-amber-600'
+                  : 'text-stone-700 hover:text-stone-950'
+              ]"
             >
               About
+              <span
+                v-if="isActive('/')"
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-amber-600 rounded-full"
+              />
+              <span
+                v-else
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-amber-600 rounded-full group-hover:w-1/2 transition-all duration-300"
+              />
             </RouterLink>
+
             <RouterLink
-                to="/activities"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
+              to="/blog"
+              :class="[
+                'px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group',
+                isActive('/blog') || route.path.startsWith('/blog/')
+                  ? 'text-amber-600'
+                  : 'text-stone-700 hover:text-stone-950'
+              ]"
             >
-              Activities
+              Blog
+              <span
+                v-if="isActive('/blog') || route.path.startsWith('/blog/')"
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-amber-600 rounded-full"
+              />
+              <span
+                v-else
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-amber-600 rounded-full group-hover:w-1/2 transition-all duration-300"
+              />
             </RouterLink>
-            <RouterLink
-                to="/lambda"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
-            >
-              Lambda
-            </RouterLink>
-            <RouterLink
-                to="/projects"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
-            >
-              Projects
-            </RouterLink>
+
+            <!-- Gerakan Dropdown -->
+            <div class="relative">
+              <button
+                ref="dropDownRef"
+                @click="toggleDropdown"
+                class="px-4 py-2 rounded-md text-sm font-medium text-stone-700 hover:text-stone-950 inline-flex items-center transition-colors duration-200"
+              >
+                Gerakan
+                <svg
+                  :class="['ml-1 h-4 w-4 transition-transform duration-200', dropDownOpen ? 'rotate-180' : '']"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M6 8l4 4 4-4"/>
+                </svg>
+              </button>
+
+              <transition name="dropdown">
+                <div
+                  v-if="dropDownOpen"
+                  class="absolute top-full mt-2 left-0 min-w-[200px] glass rounded-lg shadow-xl py-2 animate-slide-up"
+                >
+                  <RouterLink
+                    to="/gerakan"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    About
+                  </RouterLink>
+                  <RouterLink
+                    to="/activities"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    Activities
+                  </RouterLink>
+                  <RouterLink
+                    to="/lambda"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    Lambda
+                  </RouterLink>
+                  <RouterLink
+                    to="/projects"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    Projects
+                  </RouterLink>
+                </div>
+              </transition>
+            </div>
+
+            <!-- Utilities Dropdown -->
+            <div class="relative">
+              <button
+                ref="dropDownRefUtil"
+                @click="toggleDropdownUtil"
+                class="px-4 py-2 rounded-md text-sm font-medium text-stone-700 hover:text-stone-950 inline-flex items-center transition-colors duration-200"
+              >
+                Utilities
+                <svg
+                  :class="['ml-1 h-4 w-4 transition-transform duration-200', dropDownOpenUtil ? 'rotate-180' : '']"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M6 8l4 4 4-4"/>
+                </svg>
+              </button>
+
+              <transition name="dropdown">
+                <div
+                  v-if="dropDownOpenUtil"
+                  class="absolute top-full mt-2 left-0 min-w-[200px] glass rounded-lg shadow-xl py-2 animate-slide-up"
+                >
+                  <RouterLink
+                    to="/whatsapp-tool"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    WhatsApp Tool
+                  </RouterLink>
+                  <RouterLink
+                    to="/qr"
+                    class="block px-4 py-2.5 text-sm text-stone-700 hover:text-amber-600 hover:bg-amber-50/50 transition-all duration-150 hover:translate-x-1"
+                  >
+                    QR Generator
+                  </RouterLink>
+                </div>
+              </transition>
+            </div>
+          </nav>
+
+          <!-- Clock - intentionally offset -->
+          <div style="margin-right: 8px;">
+            <Clock />
           </div>
-            </transition>
         </div>
-
-        <div >
-          <button ref="dropDownRefUtil"
-              class=" inline-flex items-center mr-2 hover:text-gray-700 text-gray-900 hover:bg-dark p-2 rounded-md focus:outline-none "
-              @click="toggleDropdownUtil"
-          >
-            Utilities
-            <svg
-                class="fill-current h-4 w-4 ml-1"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-            >
-              <path d="M6 8l4 4 4-4"></path>
-            </svg>
-          </button>
-          <transition name="fade">
-          <div  v-if="dropDownOpenUtil" class="absolute bg-gray-100 py-2 rounded-md mx-auto md:mt-0 md:w-auto md:mx-3 lg:-translate-x-3 md:translate-x-3 translate-y-2 z-40 ">
-            <RouterLink
-                to="/whatsapp-tool"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
-            >
-              Whatsapp Tool
-            </RouterLink>
-
-            <RouterLink
-                to="/qr"
-                class="block px-4 py-2 text-gray-700 hover:text-gray-400"
-            >
-              QR Code Generator
-            </RouterLink>
-          </div>
-          </transition>
-        </div>
-
-      </nav>
-      <Clock/>
+      </div>
     </div>
   </header>
-
 </template>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.1s ease;
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+
+.dropdown-enter-from {
   opacity: 0;
+  transform: translateY(-8px);
+}
+
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }
 </style>
