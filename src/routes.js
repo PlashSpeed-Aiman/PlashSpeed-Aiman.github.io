@@ -4,6 +4,10 @@ const routes = [
     component: () => import('./components/About.vue')
     },
     {
+    path: '/lib-dir',
+    component: () => import('./components/LibDir.vue')
+    },
+    {
     path: '/gerakan',
     component: () => import('./components/Gerakan.vue')
     },

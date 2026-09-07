@@ -4,7 +4,7 @@
  */
 
 import { createClient } from '@sanity/client'
-import { ContentProvider } from '../contentProvider'
+import { ContentProvider } from './contentProviderBase'
 import blogConfig from '../blogConfig'
 
 class SanityProvider extends ContentProvider {

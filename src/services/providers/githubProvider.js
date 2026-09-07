@@ -5,7 +5,7 @@
 
 import { marked } from 'marked'
 import yaml from 'js-yaml'
-import { ContentProvider } from '../contentProvider'
+import { ContentProvider } from './contentProviderBase'
 import blogConfig from '../blogConfig'
 
 class GithubProvider extends ContentProvider {
