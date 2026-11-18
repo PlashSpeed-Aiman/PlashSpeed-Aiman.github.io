@@ -70,6 +70,15 @@ export default {
       backdropBlur: {
         xs: '2px',
       },
+      borderRadius: {
+        DEFAULT: '0.125rem',
+        sm: '0.0625rem',
+        md: '0.1875rem',
+        lg: '0.25rem',
+        xl: '0.375rem',
+        '2xl': '0.5rem',
+        '3xl': '0.75rem',
+      },
     },
   },
   plugins: [

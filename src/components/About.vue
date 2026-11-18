@@ -3,7 +3,9 @@ import { ref } from 'vue'
 import Card from './base/Card.vue'
 import BaseButton from './base/BaseButton.vue'
 
-const skills = [
+const techStack = ['C#', 'F#', '.NET', 'Vue.js', 'OCaml', 'Go', 'Docker']
+
+const skills = ref([
   {
     id: 1,
     title: 'Backend',
@@ -13,7 +15,7 @@ const skills = [
   {
     id: 2,
     title: 'Frontend',
-    description: 'I have experience with Vue (in fact this website is built with Vue)',
+    description: 'I have experience with Vue, Angular, Jquery. It comes natural when you do .NET backends',
     icon: '🎨'
   },
   {
@@ -25,10 +27,42 @@ const skills = [
   {
     id: 4,
     title: 'DevOps',
-    description: 'Have some working knowledge on how to make Docker images and get things up and running with Docker compose.',
+    description: 'Github Actions, Docker with Compose, some Kubernetes. I can build CI/CD pipelines with Github Actions and GHCR',
     icon: '🚀'
   }
-]
+])
+
+const draggedIndex = ref(null)
+const dragOverIndex = ref(null)
+
+function handleDragStart(index) {
+  draggedIndex.value = index
+}
+
+function handleDragOver(index) {
+  dragOverIndex.value = index
+}
+
+function handleDrop(index) {
+  if (draggedIndex.value === null || draggedIndex.value === index) {
+    draggedIndex.value = null
+    dragOverIndex.value = null
+    return
+  }
+
+  const reordered = [...skills.value]
+  const [moved] = reordered.splice(draggedIndex.value, 1)
+  reordered.splice(index, 0, moved)
+  skills.value = reordered
+
+  draggedIndex.value = null
+  dragOverIndex.value = null
+}
+
+function handleDragEnd() {
+  draggedIndex.value = null
+  dragOverIndex.value = null
+}
 </script>
 
 <template>
@@ -86,6 +120,19 @@ const skills = [
               <p class="text-sm text-stone-600">Primary Focus</p>
               <p class="text-lg font-medium text-amber-600">Backend Development</p>
             </div>
+            <div class="h-px bg-stone-200"></div>
+            <div>
+              <p class="text-sm text-stone-600 mb-2">Tech Stack</p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  v-for="tech in techStack"
+                  :key="tech"
+                  class="px-2.5 py-1 bg-stone-50 border border-stone-300 rounded-md text-xs font-medium text-stone-700 hover:border-amber-600 transition-colors duration-200"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
           </div>
         </Card>
       </div>
@@ -98,7 +145,7 @@ const skills = [
             Hi! I'm <span class="text-gradient-warm">Aiman Rahim</span>
           </h1>
           <p class="text-xl text-stone-600 leading-relaxed max-w-2xl">
-            I've been doing software development for almost 3 years with a focus on backend and I help build <span class="font-semibold text-amber-600 hover:underline"><a href="https://detacommunity.com">Developer Tanah Air</a></span>
+            I have been doing fullstack .NET software for 3 years and I help build <span class="font-semibold text-amber-600 hover:underline"><a href="https://detacommunity.com">Developer Tanah Air</a></span>
           </p>
         </div>
 
@@ -112,34 +159,6 @@ const skills = [
             <p class="text-sm text-stone-500 mt-2 font-normal not-italic">
               Contributing through technology. For the Ummah and the World!
             </p>
-          </div>
-        </div>
-
-        <!-- Tech Stack Badges -->
-        <div class="space-y-4">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-stone-500">Tech Stack</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              C#
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              F#
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              .NET
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              Vue.js
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              OCaml
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              Go
-            </span>
-            <span class="px-4 py-2 bg-white border border-stone-300 rounded-md text-sm font-medium text-stone-700 hover:border-amber-600 hover:-translate-y-0.5 transition-all duration-200">
-              Docker
-            </span>
           </div>
         </div>
       </div>
@@ -156,15 +175,23 @@ const skills = [
         What I Do
       </h2>
 
-      <!-- Grid with intentional break - 4th card wider -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Draggable & sortable skill cards (order resets on reload, not persisted) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card
           v-for="(skill, index) in skills"
           :key="skill.id"
           :hoverable="true"
           :micro-break="index === 2"
-          :class="index === 3 ? 'md:col-span-2' : ''"
-          class="group"
+          draggable="true"
+          class="group cursor-move select-none transition-opacity duration-200"
+          :class="[
+            draggedIndex === index ? 'opacity-40' : 'opacity-100',
+            dragOverIndex === index && draggedIndex !== index ? 'ring-2 ring-amber-600' : ''
+          ]"
+          @dragstart="handleDragStart(index)"
+          @dragover.prevent="handleDragOver(index)"
+          @drop.prevent="handleDrop(index)"
+          @dragend="handleDragEnd"
         >
           <div class="space-y-3">
             <div class="flex items-center gap-3">
