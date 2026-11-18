@@ -6,6 +6,7 @@ import {
 } from '../poker/engine.js'
 import { evaluateHand, rankLabel } from '../poker/evaluator.js'
 import PlayerSeat from './poker/PlayerSeat.vue'
+import { playChipClick, playChipBet, playChipAllIn, playPotCollect, playCheckKnock } from '../composables/useChipSounds.js'
 
 // Card sprites: Kenney "Playing Cards Pack" (CC0) — public/poker/cards
 const SPRITE_BASE = `${import.meta.env.BASE_URL}poker/cards/`
@@ -134,6 +135,43 @@ const seatProps = (p) => {
   }
 }
 
+// ---------- chip audio ----------
+// Roughly one clack per 60 chips committed, so bigger bets sound like taller stacks.
+const chipCountFor = (amount) => Math.max(1, Math.min(6, Math.round(amount / 60)))
+
+/** Apply an action and play the chip sound it deserves. */
+function resolveAction(state, action) {
+  const actor = state.toAct >= 0 ? state.players[state.toAct] : null
+  const prevTotal = actor ? actor.totalBet : 0
+  const wasAllIn = actor ? actor.allIn : false
+  const wasOver = state.street === 'showdown'
+
+  applyAction(state, action)
+
+  let chipsMoved = false
+  if (actor) {
+    const added = actor.totalBet - prevTotal
+    if (added > 0) {
+      chipsMoved = true
+      // All-in gets its own dense shove; everything else scales with the amount.
+      // Bot actions are a touch quieter so the human's own chips stay up front.
+      if (actor.allIn && !wasAllIn) playChipAllIn({ gain: actor.isHuman ? 1 : 0.75 })
+      else playChipBet({ count: chipCountFor(added), gain: actor.isHuman ? 1 : 0.8 })
+    }
+  }
+
+  // Check — knock on the table (fold stays silent).
+  if (action && action.type === 'check') {
+    playCheckKnock({ gain: actor && actor.isHuman ? 1 : 0.8 })
+  }
+
+  if (!wasOver && state.street === 'showdown') {
+    // Let the final bet land before the pot is raked in.
+    playPotCollect({ big: potTotal(state) >= 400, delay: chipsMoved ? 0.45 : 0.02 })
+  }
+  refresh()
+}
+
 // ---------- flow ----------
 function scheduleBots() {
   clearTimeout(botTimer)
@@ -153,8 +191,7 @@ function scheduleBots() {
       thinking.value = false
       return
     }
-    applyAction(st, decideBotAction(st))
-    refresh()
+    resolveAction(st, decideBotAction(st))
     scheduleBots()
   }, BOT_DELAY)
 }
@@ -162,6 +199,7 @@ function scheduleBots() {
 function dealHand() {
   if (gameOver.value) return
   startHand(game.value)
+  playChipBet({ count: 2, gain: 0.7 }) // blinds going in
   refresh()
   scheduleBots()
 }
@@ -174,8 +212,7 @@ function restart() {
 
 function act(type, amount) {
   if (!isHumanTurn.value) return
-  applyAction(game.value, { type, amount })
-  refresh()
+  resolveAction(game.value, { type, amount })
   scheduleBots()
 }
 
@@ -187,8 +224,15 @@ watch(legal, (l) => {
 function setRaiseFraction(fraction) {
   const l = legal.value
   if (!l) return
+  playChipClick()
   const target = g.value.currentBet + Math.round((pot.value + l.toCall) * fraction)
   raiseTo.value = Math.min(l.maxRaiseTo, Math.max(l.minRaiseTo, target))
+}
+
+/** Quick-bet chips (Min / ½ Pot / Pot / All-in) each give a small chip tap. */
+function setRaiseTo(value) {
+  playChipClick()
+  raiseTo.value = value
 }
 
 const raiseLabel = computed(() => {
@@ -318,10 +362,10 @@ onBeforeUnmount(() => clearTimeout(botTimer))
                 aria-label="Raise amount"
               />
               <div class="grid grid-cols-4 gap-1 text-xs">
-                <button class="chip-btn" @click="raiseTo = legal.minRaiseTo">Min</button>
+                <button class="chip-btn" @click="setRaiseTo(legal.minRaiseTo)">Min</button>
                 <button class="chip-btn" @click="setRaiseFraction(0.5)">½ Pot</button>
                 <button class="chip-btn" @click="setRaiseFraction(1)">Pot</button>
-                <button class="chip-btn" @click="raiseTo = legal.maxRaiseTo">All-in</button>
+                <button class="chip-btn" @click="setRaiseTo(legal.maxRaiseTo)">All-in</button>
               </div>
               <button class="btn-primary w-full" @click="act('raise', raiseTo)">{{ raiseLabel }}</button>
             </div>

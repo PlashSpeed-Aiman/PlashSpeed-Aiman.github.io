@@ -5,6 +5,9 @@
  * see public/sounds/chips/License.txt for attribution. Only the chip files are
  * shipped; the rest of the pack is not part of this repo.
  *
+ * Table knocks (the classic double tap on the felt to check) come from
+ * Kenney's "Impact Sounds" pack (CC0 1.0) — see public/sounds/table/License.txt.
+ *
  * A single AudioContext is created lazily and shared by the whole app. It is
  * resumed on the first user interaction so autoplay policies are satisfied.
  * Every sample is fetched + decoded once (lazily, or eagerly on the first
@@ -17,7 +20,9 @@
  */
 
 const BASE = (import.meta.env && import.meta.env.BASE_URL) || '/'
-const DIR = `${BASE.endsWith('/') ? BASE : `${BASE}/`}sounds/chips/`
+const ROOT = `${BASE.endsWith('/') ? BASE : `${BASE}/`}sounds/`
+const DIR = `${ROOT}chips/`
+const TABLE_DIR = `${ROOT}table/`
 
 /** Sample variants, grouped by what they sound like. */
 const SAMPLES = {
@@ -52,6 +57,9 @@ const SAMPLES = {
 
 const ALL_SAMPLES = Object.values(SAMPLES).reduce((all, list) => all.concat(list), [])
 
+/** Soft wood knocks — knuckles on the table, the "check" gesture. */
+const KNOCKS = ['knock-1.ogg', 'knock-2.ogg', 'knock-3.ogg', 'knock-4.ogg']
+
 const MASTER_VOLUME = 0.45
 const PITCH_JITTER = 0.06 // ±6 %
 
@@ -72,6 +80,17 @@ function warnOnce() {
   warned = true
   try {
     console.warn('[chips] some chip samples could not be loaded — chip audio is disabled')
+  } catch {
+    /* ignore */
+  }
+}
+
+let knockWarned = false
+function warnKnockOnce() {
+  if (knockWarned) return
+  knockWarned = true
+  try {
+    console.warn('[table] knock samples could not be loaded — check knocks are muted')
   } catch {
     /* ignore */
   }
@@ -114,43 +133,50 @@ function decode(c, data) {
 }
 
 /** Fetch + decode one file once; always resolves (null on failure). */
-function load(file) {
-  const cached = buffers.get(file)
+function load(file, dir = DIR) {
+  const key = dir + file
+  const cached = buffers.get(key)
   if (cached) return Promise.resolve(cached)
-  const inflight = pending.get(file)
+  const inflight = pending.get(key)
   if (inflight) return inflight
 
   const c = getContext()
   if (!c || typeof fetch !== 'function') return Promise.resolve(null)
 
-  const p = fetch(DIR + file)
+  const onFail = () => {
+    pending.delete(key)
+    if (dir === TABLE_DIR) warnKnockOnce()
+    else warnOnce()
+    return null
+  }
+
+  const p = fetch(dir + file)
     .then((res) => {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       return res.arrayBuffer()
     })
     .then((data) => decode(c, data))
     .then((buffer) => {
-      if (buffer) buffers.set(file, buffer)
-      pending.delete(file)
+      if (buffer) buffers.set(key, buffer)
+      pending.delete(key)
       return buffer
     })
-    .catch(() => {
-      pending.delete(file)
-      warnOnce()
-      return null
-    })
+    .catch(onFail)
 
-  pending.set(file, p)
+  pending.set(key, p)
   return p
 }
 
-/** Kick off loading of every chip sample (idempotent, never throws). */
+/** Kick off loading of every sample (chips + table knocks); idempotent. */
 function preload() {
   if (preloaded) return
   if (!getContext()) return
   preloaded = true
   ALL_SAMPLES.forEach((file) => {
     load(file)
+  })
+  KNOCKS.forEach((file) => {
+    load(file, TABLE_DIR)
   })
 }
 
@@ -201,26 +227,34 @@ hookInteraction()
  * Play one random sample from a group.
  * Skipped (and loading started) when the buffer isn't decoded yet.
  */
-function playSample(group, { when, gain = 1, rate = 1, offset = 0 } = {}) {
+function playSample(group, { when, gain = 1, rate = 1, offset = 0, dir = DIR } = {}) {
   try {
     const list = SAMPLES[group]
     if (!list || !list.length) return
     const c = ready()
     if (!c) return
-    const file = pick(list)
-    const buffer = buffers.get(file)
+    playFile(pick(list), { when, gain, rate, offset, dir, c })
+  } catch {
+    /* never let audio break the game */
+  }
+}
+
+/** Play one already-known file from `dir` (one node, jittered pitch + start). */
+function playFile(file, { when, gain, rate, offset = 0, dir = DIR, c } = {}) {
+  try {
+    const buffer = buffers.get(dir + file)
     if (!buffer) {
-      load(file)
+      load(file, dir)
       return
     }
     const src = c.createBufferSource()
     src.buffer = buffer
     src.playbackRate.value = Math.min(
       4,
-      Math.max(0.25, rate * rnd(1 - PITCH_JITTER, 1 + PITCH_JITTER)),
+      Math.max(0.25, (rate || 1) * rnd(1 - PITCH_JITTER, 1 + PITCH_JITTER)),
     )
     const g = c.createGain()
-    g.gain.value = Math.max(0, gain)
+    g.gain.value = Math.max(0, gain == null ? 1 : gain)
     src.connect(g)
     g.connect(master)
     const start = Math.max(c.currentTime, (when == null ? c.currentTime : when) + rnd(0, 0.004))
@@ -328,6 +362,38 @@ export function playPotCollect({ big = false, delay = 0.02 } = {}) {
   }
 }
 
+/**
+ * Check — the classic "knock on the table": two quick raps with the knuckles,
+ * the second one a little softer as the hand settles.
+ * @param {{ gain?: number }} opts relative volume (bots are a touch quieter)
+ */
+export function playCheckKnock({ gain = 1 } = {}) {
+  const c = ready()
+  if (!c) return
+  try {
+    const level = Math.max(0, gain)
+    const t0 = c.currentTime + 0.01
+    // Same sample both times so it reads as one gesture, but pitch-jittered.
+    const file = pick(KNOCKS)
+    playFile(file, {
+      when: t0,
+      gain: 0.6 * level,
+      rate: rnd(0.97, 1.03),
+      dir: TABLE_DIR,
+      c,
+    })
+    playFile(file, {
+      when: t0 + rnd(0.11, 0.15),
+      gain: 0.42 * level,
+      rate: rnd(0.95, 1.0),
+      dir: TABLE_DIR,
+      c,
+    })
+  } catch {
+    /* ignore */
+  }
+}
+
 /** Enable / disable all chip audio (not surfaced in the UI yet). */
 export function setChipSoundMuted(value) {
   muted = !!value
@@ -350,6 +416,7 @@ export function useChipSounds() {
     playChipBet,
     playChipAllIn,
     playPotCollect,
+    playCheckKnock,
     setChipSoundMuted,
     isChipSoundMuted,
   }
