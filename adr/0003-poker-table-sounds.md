@@ -72,7 +72,7 @@ All sounds are fired from the `resolveAction()` wrapper in `Poker.vue`, next to 
 
 ## Consequences
 
-- **Asset weight:** about 155 KB of `.ogg` in `public/` (roughly 129 KB chips, 26 KB knocks). They are copied as-is, not bundled, so they only download when the poker page is played.
+- **Asset weight:** about 154 KB of `.ogg` in `public/` (roughly 129 KB of chips, 25 KB of knocks). The files are copied as-is, not bundled, so they only download when the poker page is played.
 - **OGG support:** `.ogg` is unsupported in older Safari (before 17 on some platforms). Those browsers stay silent — the game itself is unaffected.
 - **The context stays open for the whole session** once created. It is never closed, because the site is a single page and reopening a context per hand would be worse.
 - **No mute toggle in the UI yet**, so a visitor who doesn't want sound has to mute the tab.

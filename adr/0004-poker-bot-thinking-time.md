@@ -16,7 +16,7 @@ Constraints:
 - Longer pauses mean more chances for a timer to outlive its turn (new hand, restart, page unmount, human acting first). That has to be airtight.
 - The delay is presentation only. It must not touch `src/poker/engine.js`, which stays Vue-free and testable under Node.
 
-## Decision
+## Decisions
 
 ### 1. A randomized 800–2500 ms window
 
