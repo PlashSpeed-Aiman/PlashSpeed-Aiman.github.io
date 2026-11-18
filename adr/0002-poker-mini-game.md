@@ -45,7 +45,7 @@ Constraints:
 - Three bots with different play styles: Ali (tight), Mei (balanced), Raju (loose).
 - Before each decision, a bot estimates its win chance by playing out about 250 random deals of the remaining cards.
 - It compares that win chance with the pot odds and adjusts for its play style, occasional bluffs and a little randomness.
-- Each bot move waits 750 ms so the player can follow the action.
+- Each bot move waits 750 ms so the player can follow the action. (Since replaced by a randomized 800–2500 ms pause — see [ADR 0004](./0004-poker-bot-thinking-time.md).)
 - See [ADR 0001](./0001-poker-bot-ai.md) for trained-AI options and planned improvements.
 
 ### 4. UI: one page with a separate seat component
@@ -76,10 +76,12 @@ Constraints:
   - 24 hand-ranking and side-pot tests passed.
   - About 1,400 bots-only hands ran with total chips unchanged and no hand getting stuck.
   - Adding a test runner and keeping these tests is recommended.
-- **Not included:** sound, saving chips between visits, difficulty settings, and choosing the number of players.
+- **Not included:** sound (added later — see [ADR 0003](./0003-poker-table-sounds.md)), saving chips between visits, difficulty settings, and choosing the number of players.
 - The UI has only been checked with production builds, not played through in a browser.
 
 ## Related
 
 - [ADR 0001: Poker bot AI approach](./0001-poker-bot-ai.md)
+- [ADR 0003: Poker table sounds](./0003-poker-table-sounds.md)
+- [ADR 0004: Randomized bot thinking time](./0004-poker-bot-thinking-time.md)
 - Card art: <https://kenney.nl/assets/playing-cards-pack> (CC0)
