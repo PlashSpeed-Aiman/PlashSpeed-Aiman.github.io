@@ -2,7 +2,7 @@
 import { shallowRef, triggerRef, ref, computed, watch, onBeforeUnmount, nextTick } from 'vue'
 import {
   createGame, startHand, applyAction, legalActions, decideBotAction,
-  potTotal,
+  potTotal, STREETS,
 } from '../poker/engine.js'
 import { evaluateHand, rankLabel } from '../poker/evaluator.js'
 import PlayerSeat from './poker/PlayerSeat.vue'
@@ -18,7 +18,15 @@ const cardSrc = (card) => {
 const cardAlt = (card) => card ? `${rankLabel(card.rank)} of ${card.suit}` : 'Face-down card'
 
 const STARTING_CHIPS = 1000
-const BOT_DELAY = 750
+
+// ---------- bot "thinking" pacing ----------
+// Every bot action is preceded by a randomized pause so the table feels human.
+// BOT_THINK_MIN_MS / BOT_THINK_MAX_MS bound that pause; easy spots land near the
+// min, genuinely hard spots climb to the max. Tune these two numbers to taste.
+const BOT_THINK_MIN_MS = 800
+const BOT_THINK_MAX_MS = 2500
+// How much random jitter (fraction of the window) may nudge a computed think time.
+const BOT_THINK_JITTER = 0.15
 
 const PLAYER_SETUP = [
   { name: 'You', isHuman: true },
@@ -32,6 +40,8 @@ const raiseTo = ref(0)
 const thinking = ref(false)
 const logEl = ref(null)
 let botTimer = null
+// Bumped whenever we cancel, so an already-queued callback can tell it's stale.
+let botTicket = 0
 
 function newGame() {
   return createGame({ players: PLAYER_SETUP, startingChips: STARTING_CHIPS, smallBlind: 10, bigBlind: 20 })
@@ -172,32 +182,104 @@ function resolveAction(state, action) {
   refresh()
 }
 
+// ---------- bot thinking time ----------
+const clamp01 = (x) => Math.min(1, Math.max(0, x))
+
+/**
+ * Pick a human-ish pause for a bot action, in ms.
+ * The result is a 0..1 "difficulty" score mapped onto the MIN..MAX window:
+ * snap checks and trash folds land low, calls/raises, big pots, late streets and
+ * all-in decisions climb toward the top. Call after decideBotAction() so we can
+ * look at the action it actually picked.
+ */
+function botThinkTime(state, action) {
+  const legal = legalActions(state)
+  const p = state.players[state.toAct]
+  const bb = state.bigBlind || 20
+  const pot = potTotal(state)
+
+  // Base: somewhere in the lower-middle of the window
+  let t = 0.3 + Math.random() * 0.25
+
+  // --- easy spots ---
+  if (action.type === 'check') t -= 0.2                              // nothing to think about
+  // Folding to an expensive bet with trash is snappy; a close/cheap fold takes a beat.
+  if (action.type === 'fold') t = legal && legal.toCall > p.chips * 0.4 ? 0.1 : -0.25
+
+  // --- harder spots ---
+  if (action.type === 'call') t += 0.1
+  if (action.type === 'raise') t += 0.15
+  if (legal && legal.toCall > 0) t += 0.15                           // facing a bet
+  if (state.currentBet > bb * 3) t += 0.1                            // a real raise to consider
+  if (pot >= bb * 25) t += 0.2                                       // big pot
+  else if (pot >= bb * 10) t += 0.1
+  if (STREETS.indexOf(state.street) >= 2) t += 0.1                   // turn/river decisions
+  if (legal && action.type === 'raise' && action.amount >= legal.maxRaiseTo) t += 0.25 // shoving
+  if (legal && legal.toCall >= p.chips) t += 0.15                    // calling off the stack
+
+  // A little randomness so it never feels metronomic
+  t += (Math.random() - 0.5) * BOT_THINK_JITTER
+
+  const span = BOT_THINK_MAX_MS - BOT_THINK_MIN_MS
+  return Math.round(BOT_THINK_MIN_MS + clamp01(t) * span)
+}
+
 // ---------- flow ----------
+/**
+ * The only way a bot action gets scheduled. Cancels any pending timer first, so
+ * at most one bot timer is ever live and turns stay strictly sequential.
+ * `botTicket` invalidates callbacks that were already queued when we cancelled.
+ */
+function cancelBotTimer() {
+  botTicket++
+  if (botTimer !== null) clearTimeout(botTimer)
+  botTimer = null
+  thinking.value = false
+}
+
 function scheduleBots() {
-  clearTimeout(botTimer)
+  cancelBotTimer()
+
   const s = game.value
-  if (s.street === 'showdown' || s.street === 'idle' || s.toAct < 0) {
-    thinking.value = false
-    return
-  }
-  if (s.players[s.toAct].isHuman) {
-    thinking.value = false
-    return
-  }
+  if (s.street === 'showdown' || s.street === 'idle' || s.toAct < 0) return
+  const actor = s.players[s.toAct]
+  if (!actor || actor.isHuman) return
+  const legalNow = legalActions(s)
+  if (!legalNow) return
+
+  // Decide now so the pause can match how hard the spot is, then wait it out.
+  const action = decideBotAction(s)
+  const delay = botThinkTime(s, action)
+
   thinking.value = true
+  const ticket = botTicket
+  const { handNumber, street } = s
+  const actorId = actor.id
+
   botTimer = setTimeout(() => {
+    botTimer = null
     const st = game.value
-    if (st.toAct < 0 || st.players[st.toAct].isHuman || st.street === 'showdown') {
-      thinking.value = false
+    // Stale? Cancelled, new hand, hand ended, or someone else to act → drop it.
+    // (If nothing else is queued, make sure the "thinking" cue doesn't stick.)
+    const stale = ticket !== botTicket
+      || st.handNumber !== handNumber
+      || st.street !== street
+      || st.street === 'showdown' || st.street === 'idle'
+      || st.toAct !== actorId
+      || !st.players[actorId] || st.players[actorId].isHuman
+    if (stale) {
+      if (botTimer === null) thinking.value = false
       return
     }
-    resolveAction(st, decideBotAction(st))
+
+    resolveAction(st, action)   // sounds fire here, after the pause
     scheduleBots()
-  }, BOT_DELAY)
+  }, delay)
 }
 
 function dealHand() {
   if (gameOver.value) return
+  cancelBotTimer()
   startHand(game.value)
   playChipBet({ count: 2, gain: 0.7 }) // blinds going in
   refresh()
@@ -205,9 +287,8 @@ function dealHand() {
 }
 
 function restart() {
-  clearTimeout(botTimer)
+  cancelBotTimer()
   game.value = newGame()
-  thinking.value = false
 }
 
 function act(type, amount) {
@@ -248,7 +329,7 @@ watch(() => g.value.log.length, async () => {
   if (logEl.value) logEl.value.scrollTop = logEl.value.scrollHeight
 })
 
-onBeforeUnmount(() => clearTimeout(botTimer))
+onBeforeUnmount(() => cancelBotTimer())
 </script>
 
 <template>
