@@ -130,6 +130,26 @@ const navClasses = computed(() => {
               />
             </RouterLink>
 
+            <RouterLink
+              to="/poker"
+              :class="[
+                'px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 relative group',
+                isActive('/poker')
+                  ? 'text-amber-600'
+                  : 'text-stone-700 hover:text-stone-950'
+              ]"
+            >
+              Poker
+              <span
+                v-if="isActive('/poker')"
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-amber-600 rounded-full"
+              />
+              <span
+                v-else
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-amber-600 rounded-full group-hover:w-1/2 transition-all duration-300"
+              />
+            </RouterLink>
+
             <!-- Gerakan Dropdown -->
             <div class="relative">
               <button

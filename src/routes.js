@@ -24,6 +24,10 @@ const routes = [
         component: () => import('./components/WhatsApp.vue')
     },
     {
+        path: '/poker',
+        component: () => import('./components/Poker.vue')
+    },
+    {
         path: '/blog',
         component: () => import('./components/Blog.vue')
     },
